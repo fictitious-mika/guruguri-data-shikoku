@@ -1,0 +1,23 @@
+# 四国の地図データ（区画ファイル）を作って、GitHub Pages に公開する
+name: Build tiles
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 18 7 * *'     # 毎月 日本時間の8日 3:00
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    env:
+      BBOX:
